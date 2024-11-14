@@ -2,13 +2,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <locale.h>
+#include <windows.h>
 
-void renk() {
-    system("color a");
+void konsolAyarla() {
+    // Windows konsol penceresini UTF-8 için ayarla
+    SetConsoleOutputCP(65001);
+    
+    // Konsol rengini yeşil yap
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
 }
 
 int main() {
-    renk();
+    konsolAyarla();
     srand(time(NULL));
     int random_digits[4], girilenSayi, sayi, artiSayac, eksiSayac;
     int puan = 100;
@@ -23,7 +30,9 @@ int main() {
              random_digits[1] == random_digits[2] || random_digits[1] == random_digits[3] || random_digits[2] == random_digits[3]);
 
     sayi = random_digits[0] * 1000 + random_digits[1] * 100 + random_digits[2] * 10 + random_digits[3];
-    printf("OYUN BAŞLADI\n");
+    
+    printf("*** SAYI TAHMIN OYUNU ***\n");
+    printf("4 basamakli sayiyi tahmin edin!\n\n");
 
     for (int sayac = 1; sayac <= 10; sayac++) {
         printf("Sayı gir: ");
